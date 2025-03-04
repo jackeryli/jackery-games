@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Collection</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        color: #333;
+      }
+      h1 {
+        color: #000000;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+      }
+      .game-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+        margin: 0 auto;
+      }
+      .game-card {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        height: 100%;
+      }
+      .game-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      }
+      .game-card-content {
+        padding: 20px;
+        text-align: center;
+      }
+      .game-card h2 {
+        color: #000;
+        margin-bottom: 10px;
+        font-size: 1.8rem;
+      }
+      .game-card p {
+        margin-bottom: 0;
+        color: #666;
+        font-size: 1rem;
+      }
+      .game-card.red {
+        background-color: #ff3b4a;
+        color: white;
+      }
+      .game-card.blue {
+        background-color: #4dabf7;
+        color: white;
+      }
+      .game-card.green {
+        background-color: #40c057;
+        color: white;
+      }
+      .game-card.yellow {
+        background-color: #ffd43b;
+        color: black;
+      }
+
+      .game-card.red h2,
+      .game-card.blue h2,
+      .game-card.green h2 {
+        color: white;
+      }
+      .game-card.red p,
+      .game-card.blue p,
+      .game-card.green p {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .game-card.yellow h2 {
+        color: black;
+      }
+      .game-card.yellow p {
+        color: rgba(0, 0, 0, 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Game Collection</h1>
+    <p class="subtitle">Games and other stuff</p>
+
+    <div class="game-container">
+      <a href="2048.html" class="game-card red">
+        <div class="game-card-content">
+          <h2>2048</h2>
+          <p>Join the numbers and get to the 2048 tile!</p>
+        </div>
+      </a>
+
+      <a href="flappy-bird.html" class="game-card blue">
+        <div class="game-card-content">
+          <h2>Flappy Bird</h2>
+          <p>Navigate a bird through a series of pipes without hitting them.</p>
+        </div>
+      </a>
+
+      <a href="racing-car.html" class="game-card green">
+        <div class="game-card-content">
+          <h2>Racing Car</h2>
+          <p>Race against time and dodge obstacles in this exciting game.</p>
+        </div>
+      </a>
+
+      <a href="shooting-game.html" class="game-card yellow">
+        <div class="game-card-content">
+          <h2>Shooting Game</h2>
+          <p>Test your aim and reflexes in this action-packed game.</p>
+        </div>
+      </a>
+
+      <a href="21-card-game.html" class="game-card green">
+        <div class="game-card-content">
+          <h2>21 Card Game</h2>
+          <p>Try to beat the dealer without going over 21!</p>
+        </div>
+      </a>
+    </div>
+  </body>
+</html>

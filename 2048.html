@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2048 Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #faf8ef;
+        color: #776e65;
+        padding: 20px;
+      }
+      .header {
+        width: 430px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      h1 {
+        font-size: 60px;
+        font-weight: bold;
+        margin: 0;
+        color: #776e65;
+      }
+      .score-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #bbada0;
+        padding: 10px 20px;
+        min-width: 80px;
+        height: 60px;
+        font-weight: bold;
+        border-radius: 3px;
+        color: white;
+        text-align: center;
+      }
+      .score-title {
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+      .score-value {
+        font-size: 25px;
+      }
+      .game-container {
+        width: 430px;
+        height: 430px;
+        background: #bbada0;
+        border-radius: 6px;
+        padding: 15px;
+        position: relative;
+      }
+      .grid-container {
+        position: absolute;
+        z-index: 1;
+      }
+      .grid-row {
+        display: flex;
+        margin-bottom: 15px;
+      }
+      .grid-row:last-child {
+        margin-bottom: 0;
+      }
+      .grid-cell {
+        width: 95px;
+        height: 95px;
+        margin-right: 15px;
+        background: #cdc1b4;
+        border-radius: 3px;
+      }
+      .grid-cell:last-child {
+        margin-right: 0;
+      }
+      .tile-container {
+        position: absolute;
+        z-index: 2;
+      }
+      .tile {
+        position: absolute;
+        width: 95px;
+        height: 95px;
+        line-height: 95px;
+        font-size: 45px;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 3px;
+        transition: all 0.1s ease-in-out;
+        z-index: 10;
+        color: #776e65;
+      }
+      .tile-2 {
+        background: #eee4da;
+      }
+      .tile-4 {
+        background: #ede0c8;
+      }
+      .tile-8 {
+        background: #f2b179;
+        color: #f9f6f2;
+      }
+      .tile-16 {
+        background: #f59563;
+        color: #f9f6f2;
+      }
+      .tile-32 {
+        background: #f67c5f;
+        color: #f9f6f2;
+      }
+      .tile-64 {
+        background: #f65e3b;
+        color: #f9f6f2;
+      }
+      .tile-128 {
+        background: #edcf72;
+        color: #f9f6f2;
+        font-size: 40px;
+      }
+      .tile-256 {
+        background: #edcc61;
+        color: #f9f6f2;
+        font-size: 40px;
+      }
+      .tile-512 {
+        background: #edc850;
+        color: #f9f6f2;
+        font-size: 40px;
+      }
+      .tile-1024 {
+        background: #edc53f;
+        color: #f9f6f2;
+        font-size: 30px;
+      }
+      .tile-2048 {
+        background: #edc22e;
+        color: #f9f6f2;
+        font-size: 30px;
+      }
+      .game-message {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(238, 228, 218, 0.73);
+        z-index: 100;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .game-message.game-over {
+        display: flex;
+      }
+      .game-message p {
+        font-size: 60px;
+        font-weight: bold;
+        margin: 0;
+      }
+      .retry-button {
+        background: #8f7a66;
+        border-radius: 3px;
+        padding: 10px 20px;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .instructions {
+        width: 430px;
+        margin-top: 20px;
+        text-align: center;
+        color: #776e65;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>2048</h1>
+      <div class="score-container">
+        <span class="score-title">SCORE</span>
+        <span class="score-value" id="score">0</span>
+      </div>
+    </div>
+
+    <div class="game-container">
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container" id="tile-container">
+        <!-- Tiles will be added here by JavaScript -->
+      </div>
+
+      <div class="game-message" id="game-message">
+        <p>Game Over!</p>
+        <a class="retry-button" onclick="startGame()">Try Again</a>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <p>
+        Use arrow keys or swipe to move tiles. Join the numbers and get to the
+        2048 tile!
+      </p>
+    </div>
+
+    <script src="2048.js"></script>
+  </body>
+</html>
